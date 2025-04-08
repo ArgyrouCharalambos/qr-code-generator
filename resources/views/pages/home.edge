@@ -78,7 +78,11 @@
           Bienvenu dans le racoursseur d'url
         </h1>
         <p class="text-lg text-sand-11">
-          Ici sera le formulaire de saisie de l'url
+          <form method="POST" action="/result">
+            {{ csrfField() }}
+            <input type="text" name="lien">
+            <button>go</button>
+          </form>
         </p>
       </div>
     </main>
