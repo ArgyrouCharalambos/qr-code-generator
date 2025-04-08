@@ -1,4 +1,5 @@
 // import type { HttpContext } from '@adonisjs/core/http'
+import QRCode from 'qrcode'
 
 export default class ShortUrlsController {
   // Affiche la page d'accueil avec le formulaire
@@ -10,7 +11,8 @@ export default class ShortUrlsController {
   public async create({ request, response ,view}) {
     // À implémenter
     const lien = request.input('lien')
-    return view.render("pages/result" , {tableau: [lien]})
+    const Qrlien = await QRCode.toDataURL(lien)
+    return view.render("pages/result" , {tableau: [Qrlien]})
   }
 
   // Redirection vers l'URL originale
