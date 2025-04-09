@@ -77,6 +77,9 @@
         <p class="text-3xl font-bold text-blue-500">
           Ici sera l'affichage des résultats
         </p>
+        @each(lien2 in tableau2)
+        <p>{{lien2}}</p>
+        @end
         @each(lien in tableau)
           <img src="{{lien}}" alt="" class="h-[170px]">   
         @end
