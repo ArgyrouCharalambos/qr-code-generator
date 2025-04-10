@@ -7,10 +7,8 @@ export default class ShortUrlsController {
   }
 
   // Création d'une URL courte
-  public async create({ request, response ,view}) {
+  public async create({ request, response }) {
     // À implémenter
-    const lien = request.input('lien')
-    return view.render("pages/result" , {tableau: [lien]})
   }
 
   // Redirection vers l'URL originale
