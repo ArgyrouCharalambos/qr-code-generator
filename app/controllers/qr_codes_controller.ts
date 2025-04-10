@@ -2,10 +2,7 @@
 import QRCode from 'qrcode'
 
 export default class QrCodesController {
-  public async generate({ params,request ,view }) {
+  public async generate({ params }) {
     // À implémenter
-    const lien = request.input('lien')
-    const Qrlien = await QRCode.toDataURL(lien)
-    return view.render("pages/result" , {tableau: [Qrlien]})
   }
 }
