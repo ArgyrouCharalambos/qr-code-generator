@@ -10,12 +10,12 @@ export default class ShortUrlsController {
   // Création d'une URL courte
   public async create({ request, response ,view}) {
     // À implémenter
-    const AncUrl = request.input('lien')
+    const AncUrl:string = request.input('lien')
     const testLien = new URL(`${AncUrl}`)
-    const code = Math.random().toString().substring(2,8)
-    const host = request.completeUrl(true)
+    const code:number|string = Math.random().toString().substring(2,8)
+    const host:string = request.completeUrl(true)
     const newUrl = new URL(`/${code}`, `${host}`)
-    const Qrlien = await QRCode.toDataURL(`${newUrl}`)
+    const Qrlien:string = await QRCode.toDataURL(`${newUrl}`)
     return view.render("pages/result" , {
       tableau: [Qrlien],
       tableau2: [newUrl],
