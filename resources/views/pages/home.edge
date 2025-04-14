@@ -85,6 +85,17 @@
           </form>
         </p>
       </div>
+      <div class="flex flex-col-reverse">
+        @each(Utilisateurs in Utilisateur)
+        <form class="flex" method="POST" action="/result/{{Utilisateurs.id}}?_method=DELETE">
+          {{ csrfField() }}
+          <p>{{Utilisateurs.id}} --</p>
+          <p>{{Utilisateurs.code}} --</p>
+          <p>{{Utilisateurs.lien}} --</p>
+          <button type="submit" class="border border-red-500">Supprimer</button>
+        </form>
+        @end
+      </div>
     </main>
     <footer>
     </footer>
