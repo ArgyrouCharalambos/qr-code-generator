@@ -13,4 +13,5 @@ const ShortUrlsController = () => import("#controllers/short_urls_controller")
 
 router.get("/",[ShortUrlsController, 'index'])
 router.post("/result",[ShortUrlsController, 'create'])
+router.get("/:code",[ShortUrlsController, 'redirect'])
 
