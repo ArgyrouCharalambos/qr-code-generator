@@ -60,7 +60,7 @@ export default class ShortUrlsController {
   }
 
   // Affiche la page de modification
-  public async edit({ params, view, request, response }) {
+  public async edit({ params, view, request }) {
     const code: number = params.code
     const editUser = await Url.findByOrFail('code', code)
     const lien = editUser.mini

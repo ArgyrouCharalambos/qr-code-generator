@@ -20,8 +20,7 @@ router.post("/result",[ShortUrlsController, 'create'])
 
 router.delete("/result/:id",[ShortUrlsController, 'delete'])
 
-router.get("/results/:code", [ShortUrlsController,'edit'])
-
+router.get("/edits/:code", [ShortUrlsController,'edit'])
 router.post("/edit/:code", [ShortUrlsController,'editEnregistrement'])
 
 
