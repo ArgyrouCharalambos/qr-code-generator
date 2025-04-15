@@ -7,7 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <form method="GET" action="/create">
+    <form method="GET" action="/home">
         <button type="submit" class="border border-red-500">create</button>
         </form>
 
@@ -21,7 +21,7 @@
           <p>{{Utilisateurs.mini}} --</p>
           <button type="submit" class="border border-red-500">Modifier</button>
         </form>
-        <form method="POST" action="/result/{{Utilisateurs.id}}?_method=DELETE">
+        <form method="POST" action="/delete/{{Utilisateurs.id}}?_method=DELETE">
             {{ csrfField() }}
         <button type="submit" class="border border-red-500">Supprimer</button>
         </form>

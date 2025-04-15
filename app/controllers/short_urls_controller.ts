@@ -12,8 +12,8 @@ export default class ShortUrlsController {
       Utilisateur,
     })
   }
-  // Affiche la page avec le formulaire
-  public async index2({ view }) {
+  // Affiche la page home avec le formulaire
+  public async home({ view }) {
     const Utilisateur = await Url.all()
 
     return view.render('pages/home', {
@@ -23,23 +23,22 @@ export default class ShortUrlsController {
 
   // Création d'une URL courte
   public async create({ request, response, view }) {
-    // À implémenter
     const lien: string = request.input('lien')
     const testLien = new URL(`${lien}`)
     const code: number = Number(Math.random().toString().substring(2, 8))
     const host: string = request.completeUrl(true)
     const newUrl = new URL(`/${code}`, `${host}`)
     const mini: string = `${newUrl}`
-    const URLS = await Url.create({
+    const shortLink = await Url.create({
       code,
       lien,
       mini,
     })
     const Qrlien: string = await QRCode.toDataURL(`${newUrl}`)
     return view.render('pages/result', {
-      tableau: [Qrlien],
-      tableau2: [newUrl],
-      tableau3: [lien],
+      Qrlien: [Qrlien],
+      newUrl: [newUrl],
+      lien: [lien],
     })
   }
 
@@ -50,13 +49,16 @@ export default class ShortUrlsController {
     return response.redirect(Utilisateur.lien)
   }
   // Supprimer un lien
-  public async delete({ params, request, response }) {
+  public async delete({ params, view, response }) {
     const id: number = params.id
     const SeulUtilisateur = await Url.findOrFail(id)
     await SeulUtilisateur.delete()
 
-    const host: string = request.completeUrl().substring(0, 22)
-    return response.redirect(host)
+    const Utilisateur = await Url.all()
+
+    return view.render('pages/liste', {
+      Utilisateur
+    })
   }
 
   // Affiche la page de modification
