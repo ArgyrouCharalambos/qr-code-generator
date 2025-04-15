@@ -80,10 +80,25 @@
         <p class="text-lg text-sand-11">
           <form method="POST" action="/result" class="flex flex-col gap-4">
             {{ csrfField() }}
+
             <input type="text" placeholder="Entrer votre lien ici..." name="lien" class="h-[50px] w-[400px] border border-blue-300 rounded-lg hover:border-blue-950 pl-3">
             <button class="bg-blue-500 rounded-lg p-1.5 text-white font-thin hover:bg-blue-950 ">racourssir</button>
           </form>
         </p>
+      </div>
+      <div class="flex flex-col-reverse">
+        @each(Utilisateurs in Utilisateur)
+        <form class="flex" method="POST" action="/results/{{Utilisateurs.code}}">
+          {{ csrfField() }}
+          <p>{{Utilisateurs.id}} --</p>
+          <p>{{Utilisateurs.code}} --</p>
+          <p>{{Utilisateurs.lien}} --</p>
+          <button type="submit" class="border border-red-500">Modifier</button>
+        </form>
+        <form method="POST" action="/result/{{Utilisateurs.id}}?_method=DELETE">
+        <button type="submit" class="border border-red-500">Supprimer</button>
+        </form>
+        @end
       </div>
     </main>
     <footer>
