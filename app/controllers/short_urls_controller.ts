@@ -52,4 +52,17 @@ export default class ShortUrlsController {
     console.log(host)
     return response.redirect(host)
   }
+
+  public async edit({params,view ,response}){
+    const code = params.code
+    const editUser = await Url.findByOrFail("code",code)
+    const lien = editUser.lien
+
+    return view.render('pages/home',{
+      lien :[lien]
+    })
+
+
+  }
+  
 }

@@ -15,5 +15,6 @@ router.get("/",[ShortUrlsController, 'index'])
 router.post("/result",[ShortUrlsController, 'create'])
 router.get("/:code",[ShortUrlsController, 'redirect'])
 router.delete("/result/:id",[ShortUrlsController, 'delete'])
+router.post("/results/:code", [ShortUrlsController,'edit'])
 
 
