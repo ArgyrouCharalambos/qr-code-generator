@@ -67,7 +67,6 @@ export default class ShortUrlsController {
     const editUser = await Url.findByOrFail('code', code)
     const lien = editUser.mini
     const lienOriginal = editUser.lien
-    const host: string = request.completeUrl().substring(0, 22)
 
     return view.render('pages/edit', {
       editUsers: [lienOriginal],
@@ -77,20 +76,19 @@ export default class ShortUrlsController {
   }
   public async editEnregistrement({ params, view, request }) {
     let code = params.code
-
     let Utilisateur = await Url.findByOrFail('code', code)
 
     const AncUrl: string = request.input('lienOriginal')
-    const Nouveau: string = request.input('lienCourt')
+    const NewLien: string = request.input('lienCourt')
 
     Utilisateur.lien = AncUrl
-    Utilisateur.mini = Nouveau
+    Utilisateur.mini = NewLien
     await Utilisateur.save()
 
-    const ALLUtilisateur = await Url.all()
+    const AllUtilisateur = await Url.all()
 
     return view.render('pages/liste', {
-      Utilisateur: ALLUtilisateur,
+      Utilisateur: AllUtilisateur,
     })
   }
 }
