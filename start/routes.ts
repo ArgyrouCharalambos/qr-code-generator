@@ -12,9 +12,17 @@ import router from '@adonisjs/core/services/router'
 const ShortUrlsController = () => import("#controllers/short_urls_controller")
 
 router.get("/",[ShortUrlsController, 'index'])
-router.post("/result",[ShortUrlsController, 'create'])
+router.get("/create",[ShortUrlsController, 'index2'])
+
 router.get("/:code",[ShortUrlsController, 'redirect'])
+
+router.post("/result",[ShortUrlsController, 'create'])
+
 router.delete("/result/:id",[ShortUrlsController, 'delete'])
-router.post("/results/:code", [ShortUrlsController,'edit'])
+
+router.get("/results/:code", [ShortUrlsController,'edit'])
+
+router.post("/edit/:code", [ShortUrlsController,'editEnregistrement'])
+
 
 

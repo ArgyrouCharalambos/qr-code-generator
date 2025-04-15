@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.integer('code').notNullable
       table.string('lien').notNullable
+      table.string('mini').notNullable
       table.timestamp('created_at')
       table.timestamp('updated_at')
     })

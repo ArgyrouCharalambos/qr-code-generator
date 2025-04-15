@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <form method="GET" action="/create">
+        <button type="submit" class="border border-red-500">create</button>
+        </form>
+
+    <div class="flex flex-col-reverse">
+        @each(Utilisateurs in Utilisateur)
+        <form class="flex" method="GET" action="/results/{{Utilisateurs.code}}">
+          {{ csrfField() }}
+          <p>{{Utilisateurs.id}} --</p>
+          <p>{{Utilisateurs.code}} --</p>
+          <p>{{Utilisateurs.lien}} --</p>
+          <p>{{Utilisateurs.mini}} --</p>
+          <button type="submit" class="border border-red-500">Modifier</button>
+        </form>
+        <form method="POST" action="/result/{{Utilisateurs.id}}?_method=DELETE">
+            {{ csrfField() }}
+        <button type="submit" class="border border-red-500">Supprimer</button>
+        </form>
+        @end
+      </div>
+</body>
+</html>
