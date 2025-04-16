@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>
+      Document
+    </title>
     <link rel="preconnect" href="https://fonts.bunny.net" />
     <link
       href="https://fonts.bunny.net/css?family=instrument-sans:400,400i,500,500i,600,600i,700,700i"
@@ -65,31 +67,47 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
-</head>
-<body>
-    <div class="container mx-auto flex flex-col items-center gap-8 mt-[2rem] border border-blue-600 rounded-lg p-16 w-2/3" >
-        <h1 class="text-4xl font-bold text-primary ">
-          Modifier vos informations!
-        </h1>
-        <p class="text-lg text-sand-11">
-            
-            @each(codes in code) 
-          <form method="POST" action="/edit/{{codes}}" class="flex flex-col gap-4">
-            @end
-            {{ csrfField() }}
-            @each(editUser in editUsers)
-            <input type="text" value="{{editUsers}}" name="lienOriginal" placeholder="Entrer votre nouveau lien court ici..." name="lien" class="h-[50px] w-[400px] border border-blue-300 rounded-lg hover:border-blue-950 pl-3">
-            @end
-            @each(lien in liens)
-           <span class="">{{lien}}</span>
-            @end
-            @each(codes in code)
-            <input type="text" value="{{codes}}" name="lienCourt" placeholder="Entrer votre nouveau lien long ici..." name="lien" class="h-[50px] w-[400px] border border-blue-300 rounded-lg hover:border-blue-950 pl-3">
-            @end
-            <button type="submit" class="bg-blue-500 rounded-lg p-1.5 text-white font-thin hover:bg-blue-950 ">Enregistrer</button>
-          </form>
-        </p>
-      </div>
-      
-</body>
+  </head>
+  <body>
+    <div
+      class="container mx-auto flex flex-col items-center gap-8 mt-[2rem] border border-blue-600 rounded-lg p-16 w-2/3"
+    >
+      <h1 class="text-4xl font-bold text-primary ">
+        Modifier vos informations!
+      </h1>
+      <p class="text-lg text-sand-11">
+
+        @each(codes in code)
+          <form method="POST" action="/edit/{{ codes }}" class="flex flex-col gap-4">
+          @end
+          {{ csrfField() }}
+          @each(editUser in editUsers)
+            <input
+              type="text"
+              value="{{ editUsers }}"
+              name="lienOriginal"
+              placeholder="Entrer votre nouveau lien court ici..."
+              name="lien"
+              class="h-[50px] w-[400px] border border-blue-300 rounded-lg hover:border-blue-950 pl-3"
+            />
+          @end
+          @each(lien in liens)
+            <span class="">{{ lien }}</span>
+          @end
+          @each(codes in code)
+            <input
+              type="text"
+              value="{{ codes }}"
+              name="lienCourt"
+              placeholder="Entrer votre nouveau lien long ici..."
+              name="lien"
+              class="h-[50px] w-[400px] border border-blue-300 rounded-lg hover:border-blue-950 pl-3"
+            />
+          @end
+          <button type="submit" class="bg-blue-500 rounded-lg p-1.5 text-white font-thin hover:bg-blue-950 ">Enregistrer</button>
+        </form>
+      </p>
+    </div>
+
+  </body>
 </html>
