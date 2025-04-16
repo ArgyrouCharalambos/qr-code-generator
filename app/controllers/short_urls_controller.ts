@@ -65,8 +65,8 @@ export default class ShortUrlsController {
   public async edit({ params, view, request }) {
     const code: number = params.code
     const editUser = await Url.findByOrFail('code', code)
-    const lien = editUser.mini
-    const lienOriginal = editUser.lien
+    const lien: string = editUser.mini
+    const lienOriginal: string = editUser.lien
     const host: string = request.completeUrl(true).substring(0, 22)
 
     return view.render('pages/edit', {
@@ -76,7 +76,7 @@ export default class ShortUrlsController {
     })
   }
   public async editEnregistrement({ params, view, request }) {
-    let code = params.code
+    let code: number = params.code
     let Utilisateur = await Url.findByOrFail('code', code)
 
     const AncUrl: string = request.input('lienOriginal')
@@ -97,11 +97,11 @@ export default class ShortUrlsController {
   }
 
   public async detail({ params, view }) {
-    const id = params.id
+    const id: number = params.id
     const Utilisateur = await Url.findOrFail(id)
 
-    const newUrl = Utilisateur.lien
-    const lien = Utilisateur.mini
+    const newUrl: string = Utilisateur.lien
+    const lien: string = Utilisateur.mini
 
     const Qrlien: string = await QRCode.toDataURL(`${lien}`)
 
