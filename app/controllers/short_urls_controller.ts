@@ -14,11 +14,7 @@ export default class ShortUrlsController {
   }
   // Affiche la page home avec le formulaire
   public async home({ view }) {
-    const Utilisateur = await Url.all()
-
-    return view.render('pages/home', {
-      Utilisateur,
-    })
+    return view.render('pages/home')
   }
 
   // Création d'une URL courte
@@ -28,13 +24,13 @@ export default class ShortUrlsController {
     const code: number = Number(Math.random().toString().substring(3, 9))
     const host: string = request.completeUrl(true)
     const newUrl = new URL(`/${code}`, `${host}`)
-    const mini: string = `${newUrl}`
+    const mini: string = String(newUrl)
     const shortLink = await Url.create({
       code,
       lien,
       mini,
     })
-    const Qrlien: string = await QRCode.toDataURL(`${newUrl}`)
+    const Qrlien: string = await QRCode.toDataURL(String(newUrl))
     return view.render('pages/result', {
       Qrlien: [Qrlien],
       newUrl: [newUrl],
@@ -45,14 +41,14 @@ export default class ShortUrlsController {
   // Redirection vers l'URL originale
   public async redirect({ params, response }) {
     const code: number = params.code
-    const Utilisateur = await Url.findByOrFail('code', code)
-    return response.redirect(Utilisateur.lien)
+    const Utilisateurs = await Url.findByOrFail('code', code)
+    return response.redirect(Utilisateurs.lien)
   }
   // Supprimer un lien
-  public async delete({ params, view, response }) {
+  public async delete({ params, view }) {
     const id: number = params.id
-    const SeulUtilisateur = await Url.findOrFail(id)
-    await SeulUtilisateur.delete()
+    const Utilisateurs = await Url.findOrFail(id)
+    await Utilisateurs.delete()
 
     const Utilisateur = await Url.all()
 
@@ -64,9 +60,8 @@ export default class ShortUrlsController {
   // Affiche la page de modification
   public async edit({ params, view, request }) {
     const code: number = params.code
-    const editUser = await Url.findByOrFail('code', code)
-    const lien: string = editUser.mini
-    const lienOriginal: string = editUser.lien
+    const Utilisateurs = await Url.findByOrFail('code', code)
+    const lienOriginal: string = Utilisateurs.lien
     const host: string = request.completeUrl(true).substring(0, 22)
 
     return view.render('pages/edit', {
@@ -76,39 +71,39 @@ export default class ShortUrlsController {
     })
   }
   public async editEnregistrement({ params, view, request }) {
-    let code: number = params.code
-    let Utilisateur = await Url.findByOrFail('code', code)
+    const code: number = params.code
+    const Utilisateurs = await Url.findByOrFail('code', code)
 
     const AncUrl: string = request.input('lienOriginal')
-    const codeCourt: number = request.input('lienCourt')
+    const codeRecup: number = request.input('code')
 
     const host: string = request.completeUrl(true).substring(0, 22)
 
-    Utilisateur.code = codeCourt
-    Utilisateur.lien = AncUrl
-    Utilisateur.mini = `${host}${codeCourt}`
-    await Utilisateur.save()
+    Utilisateurs.code = codeRecup
+    Utilisateurs.lien = AncUrl
+    Utilisateurs.mini = `${host}${codeRecup}`
+    await Utilisateurs.save()
 
-    const AllUtilisateur = await Url.all()
+    const Utilisateur = await Url.all()
 
     return view.render('pages/liste', {
-      Utilisateur: AllUtilisateur,
+      Utilisateur
     })
   }
 
   public async detail({ params, view }) {
     const id: number = params.id
-    const Utilisateur = await Url.findOrFail(id)
+    const Utilisateurs = await Url.findOrFail(id)
 
-    const newUrl: string = Utilisateur.lien
-    const lien: string = Utilisateur.mini
+    const newUrl: string = Utilisateurs.lien
+    const lien: string = Utilisateurs.mini
 
-    const Qrlien: string = await QRCode.toDataURL(`${lien}`)
+    const Qrlien: string = await QRCode.toDataURL(lien)
 
     return view.render('pages/result', {
       Qrlien: [Qrlien],
       newUrl: [newUrl],
-      lien: [lien],
+      lien: [lien]
     })
   }
 }
