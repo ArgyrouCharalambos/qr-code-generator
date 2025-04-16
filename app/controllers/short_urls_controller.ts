@@ -67,10 +67,12 @@ export default class ShortUrlsController {
     const editUser = await Url.findByOrFail('code', code)
     const lien = editUser.mini
     const lienOriginal = editUser.lien
+    const host: string = request.completeUrl(true).substring(0,22)
+
 
     return view.render('pages/edit', {
       editUsers: [lienOriginal],
-      liens: [lien],
+      liens: [host],
       code: [code],
     })
   }
@@ -79,10 +81,13 @@ export default class ShortUrlsController {
     let Utilisateur = await Url.findByOrFail('code', code)
 
     const AncUrl: string = request.input('lienOriginal')
-    const NewLien: string = request.input('lienCourt')
+    const codeCourt: number = request.input('lienCourt')
 
+    const host: string = request.completeUrl(true).substring(0,22)
+
+    Utilisateur.code = codeCourt
     Utilisateur.lien = AncUrl
-    Utilisateur.mini = NewLien
+    Utilisateur.mini = `${host}${codeCourt}`
     await Utilisateur.save()
 
     const AllUtilisateur = await Url.all()
