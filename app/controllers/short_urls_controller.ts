@@ -25,7 +25,7 @@ export default class ShortUrlsController {
   public async create({ request, response, view }) {
     const lien: string = request.input('lien')
     const testLien = new URL(`${lien}`)
-    const code: number = Number(Math.random().toString().substring(2, 8))
+    const code: number = Number(Math.random().toString().substring(3, 9))
     const host: string = request.completeUrl(true)
     const newUrl = new URL(`/${code}`, `${host}`)
     const mini: string = `${newUrl}`

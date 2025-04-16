@@ -66,26 +66,36 @@
       @vite(['resources/css/app.css', 'resources/js/app.js'])
       @stack('dumper')
 </head>
-<body>
-    <form method="GET" action="/home">
-        <button type="submit" class="bg-blue-500 rounded-lg p-1.5 text-white font-thin hover:bg-blue-950">create</button>
+<body >
+    <div class="container mx-auto flex flex-col items-center gap-8 mt-[2rem] border border-blue-600 rounded-lg p-16 w-2/3" >
+    <form method="GET" action="/home"  class="mb-[50px]">
+        <button type="submit" class="bg-blue-500 border rounded-lg p-1.5 text-white hover:border-blue-500 hover:text-blue-500 hover:bg-white font-bold text-2xl">créer un lien</button>
         </form>
 
     <div class="flex flex-col-reverse">
         @each(Utilisateurs in Utilisateur)
-        <form class="flex" method="GET" action="/edits/{{Utilisateurs.code}}">
+        <section class="">
+        <form class="flex gap-[100px] mb-8" method="GET" action="/edits/{{Utilisateurs.code}}">
           {{ csrfField() }}
-          <p>{{Utilisateurs.id}} --</p>
-          <p>{{Utilisateurs.code}} --</p>
-          <p>{{Utilisateurs.lien}} --</p>
-          <p>{{Utilisateurs.mini}} --</p>
-          <button type="submit" class="border border-red-500">Modifier</button>
+          
+          <div>
+            <div>
+                <h3 class="inline font-bold text-blue-500 text-xl">No :</h3> <h3 class="inline font-bold text-blue-500 text-xl">{{Utilisateurs.id}}</h3>
+            </div>
+          <a href="{{Utilisateurs.lien}}" class="text-base">{{Utilisateurs.lien}}</a>
+          <a href="{{Utilisateurs.mini}}" class="text-base">{{Utilisateurs.mini}}</a>
+        </div>
+        <span class="flex">
+            <button type="submit" class="h-[30px] border border-blue-500 rounded-lg p-1 text-blue-500 text-xs hover:font-bold hover:bg-blue-500 hover:text-white ">Modifier</button>
         </form>
-        <form method="POST" action="/delete/{{Utilisateurs.id}}?_method=DELETE">
-            {{ csrfField() }}
-        <button type="submit" class="border border-red-500">Supprimer</button>
-        </form>
+            <form method="POST" action="/delete/{{Utilisateurs.id}}?_method=DELETE">
+                {{ csrfField() }}
+            <button type="submit" class="border border-red-500 rounded-lg p-1.5 text-red-500 text-xs ml-1 hover:bg-red-500 hover:font-bold hover:text-white ">Supprimer</button>
+            </form>
+            </span>
         @end
+    </section>
+      </div>
       </div>
 </body>
 </html>
