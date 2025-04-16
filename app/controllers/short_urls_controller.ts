@@ -57,7 +57,7 @@ export default class ShortUrlsController {
     const Utilisateur = await Url.all()
 
     return view.render('pages/liste', {
-      Utilisateur
+      Utilisateur,
     })
   }
 
@@ -67,8 +67,7 @@ export default class ShortUrlsController {
     const editUser = await Url.findByOrFail('code', code)
     const lien = editUser.mini
     const lienOriginal = editUser.lien
-    const host: string = request.completeUrl(true).substring(0,22)
-
+    const host: string = request.completeUrl(true).substring(0, 22)
 
     return view.render('pages/edit', {
       editUsers: [lienOriginal],
@@ -83,7 +82,7 @@ export default class ShortUrlsController {
     const AncUrl: string = request.input('lienOriginal')
     const codeCourt: number = request.input('lienCourt')
 
-    const host: string = request.completeUrl(true).substring(0,22)
+    const host: string = request.completeUrl(true).substring(0, 22)
 
     Utilisateur.code = codeCourt
     Utilisateur.lien = AncUrl
@@ -97,7 +96,7 @@ export default class ShortUrlsController {
     })
   }
 
-  public async detail({ params, view }){
+  public async detail({ params, view }) {
     const id = params.id
     const Utilisateur = await Url.findOrFail(id)
 
@@ -105,15 +104,11 @@ export default class ShortUrlsController {
     const lien = Utilisateur.mini
 
     const Qrlien: string = await QRCode.toDataURL(`${lien}`)
-    
 
     return view.render('pages/result', {
       Qrlien: [Qrlien],
       newUrl: [newUrl],
       lien: [lien],
     })
-    
   }
-
-
 }
