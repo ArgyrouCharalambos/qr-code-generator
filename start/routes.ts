@@ -24,5 +24,7 @@ router.delete("/delete/:id",[ShortUrlsController, 'delete'])
 router.get("/edits/:code", [ShortUrlsController,'edit'])
 router.post("/edit/:code", [ShortUrlsController,'editEnregistrement'])
 
+router.get('/detail/:id',[ShortUrlsController , 'detail'])
+
 
 

@@ -96,4 +96,24 @@ export default class ShortUrlsController {
       Utilisateur: AllUtilisateur,
     })
   }
+
+  public async detail({ params, view }){
+    const id = params.id
+    const Utilisateur = await Url.findOrFail(id)
+
+    const newUrl = Utilisateur.lien
+    const lien = Utilisateur.mini
+
+    const Qrlien: string = await QRCode.toDataURL(`${lien}`)
+    
+
+    return view.render('pages/result', {
+      Qrlien: [Qrlien],
+      newUrl: [newUrl],
+      lien: [lien],
+    })
+    
+  }
+
+
 }
