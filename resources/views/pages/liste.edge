@@ -92,6 +92,10 @@
                 {{ csrfField() }}
             <button type="submit" class="border border-red-500 rounded-lg p-1.5 text-red-500 text-xs ml-1 hover:bg-red-500 hover:font-bold hover:text-white ">Supprimer</button>
             </form>
+            <form method="GET" action="/detail/{{Utilisateurs.id}}">
+              {{ csrfField() }}
+          <button type="submit" class="border border-red-500 rounded-lg p-1.5 text-red-500 text-xs ml-1 hover:bg-red-500 hover:font-bold hover:text-white ">Voir en détail</button>
+          </form>
             </span>
         @end
     </section>
