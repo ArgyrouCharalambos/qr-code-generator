@@ -69,9 +69,12 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
   </head>
-  <body class="min-h-screen w-screen font-sans">
-    <header>
-      @!component('components/button', { text: 'liste' })
+  <body class="min-h-screen w-screen font-sans ">
+    <header class="flex justify-center">
+      <div class="flex justify-around  border border-blue-600 rounded-lg w-2/3 pb-4 mt-5">
+        @!component('components/button', { text: 'Liste' })
+      @!component('components/btnHome', { text: 'Nouveau lien' })
+      </div>
     </header>
     <main>
       <div
