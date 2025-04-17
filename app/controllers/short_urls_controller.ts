@@ -20,12 +20,12 @@ export default class ShortUrlsController {
   // Création d'une URL courte
   public async create({ request, view }:HttpContext) {
     const lien: string = request.input('lien')
-    const testLien = new URL(`${lien}`)
+    new URL(`${lien}`)
     const code: number = Number(Math.random().toString().substring(3, 9))
     const host: string = request.completeUrl(true)
     const newUrl = new URL(`/${code}`, `${host}`)
     const mini: string = String(newUrl)
-    const shortLink = await Url.create({
+    await Url.create({
       code,
       lien,
       mini,
