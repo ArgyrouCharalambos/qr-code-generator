@@ -1,11 +1,11 @@
-// import type { HttpContext } from '@adonisjs/core/http'
+import type { HttpContext } from '@adonisjs/core/http'
 import QRCode from 'qrcode'
 import { URL } from 'url'
 import Url from '#models/url'
 
 export default class ShortUrlsController {
   // Affiche la page d'accueil
-  public async index({ view }) {
+  public async index({ view }:HttpContext) {
     const Utilisateur = await Url.all()
 
     return view.render('pages/liste', {
@@ -13,12 +13,12 @@ export default class ShortUrlsController {
     })
   }
   // Affiche la page home avec le formulaire
-  public async home({ view }) {
+  public async home({ view }:HttpContext) {
     return view.render('pages/home')
   }
 
   // Création d'une URL courte
-  public async create({ request, response, view }) {
+  public async create({ request, view }:HttpContext) {
     const lien: string = request.input('lien')
     const testLien = new URL(`${lien}`)
     const code: number = Number(Math.random().toString().substring(3, 9))
@@ -39,13 +39,13 @@ export default class ShortUrlsController {
   }
 
   // Redirection vers l'URL originale
-  public async redirect({ params, response }) {
+  public async redirect({ params, response }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
     return response.redirect(Utilisateurs.lien)
   }
   // Supprimer un lien
-  public async delete({ params, view }) {
+  public async delete({ params, view }:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
     await Utilisateurs.delete()
@@ -58,7 +58,7 @@ export default class ShortUrlsController {
   }
 
   // Affiche la page de modification
-  public async edit({ params, view, request }) {
+  public async edit({ params, view, request }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
     const lienOriginal: string = Utilisateurs.lien
@@ -70,7 +70,7 @@ export default class ShortUrlsController {
       code: [code],
     })
   }
-  public async editEnregistrement({ params, view, request }) {
+  public async editEnregistrement({ params, view, request }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
 
@@ -91,7 +91,7 @@ export default class ShortUrlsController {
     })
   }
 
-  public async detail({ params, view }) {
+  public async detail({ params, view }:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
 
