@@ -19,7 +19,8 @@ export default defineConfig({
 
   server: {
     host: true,
-    allowedHosts: ['all'] ,
+    port: 3333,
+    strictPort: true,
   },
 })
 
