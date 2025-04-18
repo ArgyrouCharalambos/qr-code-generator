@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import adonisjs from '@adonisjs/vite/client'
+import adonis from 'adonis-vite-plugin'
 
 export default defineConfig({
   plugins: [
@@ -15,10 +16,11 @@ export default defineConfig({
        */
       reload: ['resources/views/**/*.edge'],
 
-      server: {
-        host: true,
-        allowedHosts: 'all',
-      }
+      plugins: [adonis()],
+  server: {
+    host: true,
+    allowedHosts: ['qr-code-generator-20.onrender.com'],
+  },
       
     }),
   ],
