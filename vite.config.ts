@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import adonisjs from '@adonisjs/vite/client'
-import adonis from 'adonis-vite-plugin'
 
 export default defineConfig({
   plugins: [
@@ -15,14 +14,12 @@ export default defineConfig({
        * Paths to watch and reload the browser on file change
        */
       reload: ['resources/views/**/*.edge'],
-
-      plugins: [adonis()],
-  server: {
-    host: true,
-    allowedHosts: ['qr-code-generator-20.onrender.com'],
-  },
-      
     }),
   ],
+
+  server: {
+    host: true,
+    allowedHosts: 'all'
+  },
 })
 
