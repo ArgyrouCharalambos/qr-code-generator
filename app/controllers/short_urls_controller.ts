@@ -22,8 +22,8 @@ export default class ShortUrlsController {
     const lien: string = request.input('lien')
     new URL(`${lien}`)
     const code: number = Number(Math.random().toString().substring(3, 9))
-    const host: string = request.completeUrl(true)
-    const newUrl = new URL(`/${code}`, `${host}`)
+    const appHost = process.env.APP_URL
+    const newUrl = new URL(`/${code}`, `${appHost}`)
     const mini: string = String(newUrl)
     await Url.create({
       code,
@@ -58,15 +58,15 @@ export default class ShortUrlsController {
   }
 
   // Affiche la page de modification
-  public async edit({ params, view, request }:HttpContext) {
+  public async edit({ params, view }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
     const lienOriginal: string = Utilisateurs.lien
-    const host: string = request.completeUrl(true).substring(0, 22)
+    const appHost = process.env.APP_URL
 
     return view.render('pages/edit', {
       editUsers: [lienOriginal],
-      liens: [host],
+      liens: [appHost],
       code: [code],
     })
   }
@@ -77,11 +77,11 @@ export default class ShortUrlsController {
     const AncUrl: string = request.input('lienOriginal')
     const codeRecup: number = request.input('code')
 
-    const host: string = request.completeUrl(true).substring(0, 22)
+    const appHost = process.env.APP_URL
 
     Utilisateurs.code = codeRecup
     Utilisateurs.lien = AncUrl
-    Utilisateurs.mini = `${host}${codeRecup}`
+    Utilisateurs.mini = `${appHost}/${codeRecup}`
     await Utilisateurs.save()
 
     const Utilisateur = await Url.all()
