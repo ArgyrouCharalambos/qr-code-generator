@@ -7,5 +7,9 @@ export default defineConfig({
             reload: ['resources/views/**/*.edge'],
         }),
     ],
+    server: {
+        host: true,
+        allowedHosts: ["qr-code-generator-27.onrender.com"],
+    },
 });
 //# sourceMappingURL=vite.config.js.map

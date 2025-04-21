@@ -1,11 +1,12 @@
+import { middleware } from '#start/kernel';
 import router from '@adonisjs/core/services/router';
 const ShortUrlsController = () => import("#controllers/short_urls_controller");
-router.get("/", [ShortUrlsController, 'index']);
-router.get("/home", [ShortUrlsController, 'home']);
-router.get("/:code", [ShortUrlsController, 'redirect']);
-router.post("/create", [ShortUrlsController, 'create']);
-router.delete("/delete/:id", [ShortUrlsController, 'delete']);
-router.get("/edits/:code", [ShortUrlsController, 'edit']);
-router.post("/edit/:code", [ShortUrlsController, 'editEnregistrement']);
-router.get('/detail/:id', [ShortUrlsController, 'detail']);
+router.get("/", [ShortUrlsController, 'index']).use(middleware.auth());
+router.get("/home", [ShortUrlsController, 'home']).use(middleware.auth());
+router.get("/:code", [ShortUrlsController, 'redirect']).use(middleware.auth());
+router.post("/create", [ShortUrlsController, 'create']).use(middleware.auth());
+router.delete("/delete/:id", [ShortUrlsController, 'delete']).use(middleware.auth());
+router.get("/edits/:code", [ShortUrlsController, 'edit']).use(middleware.auth());
+router.post("/edit/:code", [ShortUrlsController, 'editEnregistrement']).use(middleware.auth());
+router.get('/detail/:id', [ShortUrlsController, 'detail']).use(middleware.auth());
 //# sourceMappingURL=routes.js.map
