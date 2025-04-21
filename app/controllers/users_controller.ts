@@ -15,4 +15,15 @@ export default class UsersController {
         })
         response.redirect('/login')
     }
+    
+    public async login({request,auth,response}:HttpContext){
+        const email = request.input('email')
+        const password = request.input('password')
+
+        const user = await USER.verifyCredentials(email, password)
+
+        await auth.use('web').login(user)
+
+        response.redirect('/')
+    }
 }

@@ -14,6 +14,7 @@ const UsersController = () => import("#controllers/users_controller")
 router.on('/login').render('security/login')
 router.on('/signin').render('security/signin')
 router.post("/signin", [UsersController , 'create'])
+router.get("/connexion", [UsersController , 'login'])
 
 router.get("/",[ShortUrlsController, 'index']).use(middleware.auth())
 
