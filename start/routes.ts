@@ -10,10 +10,10 @@ import { middleware } from '#start/kernel'
 import router from '@adonisjs/core/services/router'
 
 const ShortUrlsController = () => import("#controllers/short_urls_controller")
-
+const UsersController = () => import("#controllers/users_controller")
 router.on('/login').render('security/login')
 router.on('/signin').render('security/signin')
-router.post("/signin", [])
+router.post("/signin", [UsersController , 'create'])
 
 router.get("/",[ShortUrlsController, 'index']).use(middleware.auth())
 
