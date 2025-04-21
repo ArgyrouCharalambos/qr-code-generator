@@ -6,6 +6,9 @@ export default class Utilisateur extends BaseModel {
   declare id: number
 
   @column()
+  declare nom: string
+
+  @column()
   declare email: string
 
   @column()
