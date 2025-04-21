@@ -68,13 +68,13 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
   </head>
-    <body class="min-h-screen bg-sand-4 ">
+    <body class="min-h-screen bg-sand-2">
       @!component('components/header')
       <div class="container mx-auto px-4 py-12 max-w-4xl ">
   
           <div class="space-y-8">
               @each(Utilisateurs in Utilisateur)
-              <div class="bg-white p-8 rounded-2xl shadow-sm border border-sand-4 transition 
+              <div class="bg-white p-8 rounded-2xl shadow-sm border border-sand-2 transition 
               hover:border-primary/30 hover:shadow-md">
                   <div class="space-y-6">
                       <div class="space-y-2">
@@ -143,5 +143,6 @@
           </div>
       
       </div>
+      @!component('components/footer')
   </body>
 </html>
