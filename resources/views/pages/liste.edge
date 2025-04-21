@@ -68,26 +68,14 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('dumper')
   </head>
-  <body>
     <body class="min-h-screen bg-sand-4 ">
-      <header class="p-4 bg-blue-400 mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-        <div>
-            <h1 class="text-2xl font-bold text-white">Mes liens raccourcis</h1>
-        </div>
-        <a href="/home" class="bg-white border border-blue-400 text-blue-400 hover:bg-sand-5 hover:text-white  hover:font-bold px-6 py-3 rounded-lg hover:shadow-md transition-shadow flex items-center gap-2">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M19 11h-6V5h-2v6H5v2h6v6h2v-6h6z"/>
-            </svg>
-            Nouveau lien
-        </a>
-    </header>
+      @!component('components/header')
       <div class="container mx-auto px-4 py-12 max-w-4xl ">
   
           <div class="space-y-8">
               @each(Utilisateurs in Utilisateur)
               <div class="bg-white p-8 rounded-2xl shadow-sm border border-sand-4 transition 
               hover:border-primary/30 hover:shadow-md">
-                  <!-- Contenu principal -->
                   <div class="space-y-6">
                       <div class="space-y-2">
                           <p class="text-xs font-semibold text-sand-8 tracking-wide">
