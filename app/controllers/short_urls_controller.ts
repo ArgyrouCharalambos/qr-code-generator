@@ -25,12 +25,12 @@ export default class ShortUrlsController {
     const appHost = process.env.APP_URL
     const newUrl = new URL(`/${code}`, `${appHost}`)
     const mini: string = String(newUrl)
-    const USERId = auth.user
+    const USER = auth.user
     await Url.create({
       code,
       lien,
       mini,
-      userid:USERId?.id
+      userid:USER?.id
     })
     const Qrlien: string = await QRCode.toDataURL(String(newUrl))
     return view.render('pages/result', {

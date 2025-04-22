@@ -3,6 +3,7 @@ import USER,{UserRole} from '#models/user'
 
 export default class UsersController {
 
+    //création d'un utilisateur
     public async create({request,response}:HttpContext){
         const fullName = request.input('name')
         const email = request.input('email')
@@ -15,7 +16,7 @@ export default class UsersController {
         })
         response.redirect('/login')
     }
-    
+    //connexion d'un utilisateur
     public async login({request,auth,response}:HttpContext){
         const email = request.input('email')
         const password = request.input('password')
