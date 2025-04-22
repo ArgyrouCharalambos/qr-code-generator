@@ -14,6 +14,9 @@ export default class Url extends BaseModel {
   @column()
   declare mini: string
 
+  @column()
+  declare userid: number
+
   @column.dateTime({ autoCreate: true })
   declare createdAt: DateTime
 

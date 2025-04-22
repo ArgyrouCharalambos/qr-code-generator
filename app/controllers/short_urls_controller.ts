@@ -18,17 +18,19 @@ export default class ShortUrlsController {
   }
 
   // Création d'une URL courte
-  public async create({ request, view }:HttpContext) {
+  public async create({ request, view , auth}:HttpContext) {
     const lien: string = request.input('lien')
     new URL(`${lien}`)
     const code: number = Number(Math.random().toString().substring(3, 9))
     const appHost = process.env.APP_URL
     const newUrl = new URL(`/${code}`, `${appHost}`)
     const mini: string = String(newUrl)
+    const USERId = auth.user
     await Url.create({
       code,
       lien,
       mini,
+      userid:USERId?.id
     })
     const Qrlien: string = await QRCode.toDataURL(String(newUrl))
     return view.render('pages/result', {
@@ -58,9 +60,13 @@ export default class ShortUrlsController {
   }
 
   // Affiche la page de modification
-  public async edit({ params, view }:HttpContext) {
+  public async edit({ params, view ,bouncer,session,response}:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
+    if(await bouncer.denies('controlUser',Utilisateurs)){
+      session.flash('error', 'Action interdit')
+      return response.redirect().back()
+    }
     const lienOriginal: string = Utilisateurs.lien
     const appHost = process.env.APP_URL
 

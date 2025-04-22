@@ -12,4 +12,7 @@
 |
 */
 
-export const policies = {}
+import { Bouncer } from '@adonisjs/bouncer'
+
+export const policies = {
+}
