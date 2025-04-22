@@ -47,9 +47,12 @@ export default class ShortUrlsController {
     return response.redirect(Utilisateurs.lien)
   }
   // Supprimer un lien
-  public async delete({ params, view }:HttpContext) {
+  public async delete({ params, view ,bouncer,response}:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
+    if(await bouncer.denies('controlUser',Utilisateurs)){
+      return response.redirect().back()
+    }
     await Utilisateurs.delete()
 
     const Utilisateur = await Url.all()
@@ -60,11 +63,10 @@ export default class ShortUrlsController {
   }
 
   // Affiche la page de modification
-  public async edit({ params, view ,bouncer,session,response}:HttpContext) {
+  public async edit({ params, view ,bouncer,response}:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
     if(await bouncer.denies('controlUser',Utilisateurs)){
-      session.flash('error', 'Action interdit')
       return response.redirect().back()
     }
     const lienOriginal: string = Utilisateurs.lien
@@ -97,9 +99,12 @@ export default class ShortUrlsController {
     })
   }
 
-  public async detail({ params, view }:HttpContext) {
+  public async detail({ params, view ,bouncer,response}:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
+    if(await bouncer.denies('controlUser',Utilisateurs)){
+      return response.redirect().back()
+    }
 
     const newUrl: string = Utilisateurs.lien
     const lien: string = Utilisateurs.mini
