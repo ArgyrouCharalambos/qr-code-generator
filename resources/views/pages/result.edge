@@ -88,10 +88,10 @@
           <div class="space-y-8">
               @each(newUrls in newUrl)
               <div>
-                  <p class="text-sm text-sand-10 mb-2">Nouveau lien</p>
+                  <p class="text-sm text-sand-10 mb-2">Ancien lien</p>
                   <div class="flex items-center gap-4 bg-sand-2 p-4 rounded-lg">
                       <a href="{{ newUrls }}" 
-                         class="text-primary font-medium break-all hover:underline underline-offset-4 text-lg">
+                         class="text-sand-12 break-all hover:text-primary transition underline-offset-4 hover:underline">
                           {{ newUrls }}
                       </a>
                   </div>
@@ -100,10 +100,10 @@
 
               @each(AncUrl in lien)
               <div>
-                  <p class="text-sm text-sand-10 mb-2">Ancien lien</p>
+                  <p class="text-sm text-sand-10 mb-2">Nouveau lien</p>
                   <div class="bg-sand-2 p-4 rounded-lg">
                       <a href="{{ AncUrl }}" 
-                         class="text-sand-12 break-all hover:text-primary transition underline-offset-4 hover:underline">
+                         class="text-primary font-medium break-all hover:underline underline-offset-4 text-lg">
                           {{ AncUrl }}
                       </a>
                   </div>
