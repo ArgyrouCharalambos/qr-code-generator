@@ -4,7 +4,7 @@ import { URL } from 'url'
 import Url from '#models/url'
 
 export default class ShortUrlsController {
-  // Affiche la page d'accueil
+  //vers page d'accueil
   public async index({ view }:HttpContext) {
     const Utilisateur = await Url.all()
 
@@ -12,12 +12,12 @@ export default class ShortUrlsController {
       Utilisateur,
     })
   }
-  // Affiche la page home avec le formulaire
+  //vers page home avec le formulaire
   public async home({ view }:HttpContext) {
     return view.render('pages/home')
   }
 
-  // Création d'une URL courte
+  // création d'une url courte
   public async create({ request, view , auth}:HttpContext) {
     const lien: string = request.input('lien')
     new URL(`${lien}`)
@@ -40,13 +40,13 @@ export default class ShortUrlsController {
     })
   }
 
-  // Redirection vers l'URL originale
+  // redirection vers le lien original
   public async redirect({ params, response }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
     return response.redirect(Utilisateurs.lien)
   }
-  // Supprimer un lien
+  // supprimer un lien
   public async delete({ params ,bouncer,response}:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
@@ -58,7 +58,7 @@ export default class ShortUrlsController {
     return response.redirect('/')
   }
 
-  // Affiche la page de modification
+  // vers page de modification
   public async edit({ params, view ,bouncer,response}:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
@@ -74,6 +74,7 @@ export default class ShortUrlsController {
       code: [code],
     })
   }
+  //enregistrement du formulaire de la modification
   public async editEnregistrement({ params, request,response }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
@@ -90,7 +91,7 @@ export default class ShortUrlsController {
 
     return response.redirect('/')
   }
-
+  //Pour voir en détail le lien
   public async detail({ params, view ,bouncer,response}:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
