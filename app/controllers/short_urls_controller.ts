@@ -47,7 +47,7 @@ export default class ShortUrlsController {
     return response.redirect(Utilisateurs.lien)
   }
   // Supprimer un lien
-  public async delete({ params, view ,bouncer,response}:HttpContext) {
+  public async delete({ params ,bouncer,response}:HttpContext) {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
     if(await bouncer.denies('controlUser',Utilisateurs)){
@@ -74,7 +74,7 @@ export default class ShortUrlsController {
       code: [code],
     })
   }
-  public async editEnregistrement({ params, view, request,response }:HttpContext) {
+  public async editEnregistrement({ params, request,response }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
 
