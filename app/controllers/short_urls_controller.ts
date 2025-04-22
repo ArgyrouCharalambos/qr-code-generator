@@ -55,11 +55,7 @@ export default class ShortUrlsController {
     }
     await Utilisateurs.delete()
 
-    const Utilisateur = await Url.all()
-
-    return view.render('pages/liste', {
-      Utilisateur,
-    })
+    return response.redirect('/')
   }
 
   // Affiche la page de modification
@@ -78,7 +74,7 @@ export default class ShortUrlsController {
       code: [code],
     })
   }
-  public async editEnregistrement({ params, view, request }:HttpContext) {
+  public async editEnregistrement({ params, view, request,response }:HttpContext) {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
 
@@ -92,11 +88,7 @@ export default class ShortUrlsController {
     Utilisateurs.mini = `${appHost}/${codeRecup}`
     await Utilisateurs.save()
 
-    const Utilisateur = await Url.all()
-
-    return view.render('pages/liste', {
-      Utilisateur
-    })
+    return response.redirect('/')
   }
 
   public async detail({ params, view ,bouncer,response}:HttpContext) {
