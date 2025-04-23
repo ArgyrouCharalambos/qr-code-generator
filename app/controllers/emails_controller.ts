@@ -11,7 +11,7 @@ return view.render('security/passwordedit',{email:[email]})
     }
     public async sendPassword({request,response}:HttpContext){
         const email = request.input('email')
-        const user = User.findByOrFail('email',email)
+        User.findByOrFail('email',email)
         const appHost = process.env.APP_URL
         await mail.send((message) => {
         message
