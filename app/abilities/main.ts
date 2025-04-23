@@ -11,14 +11,9 @@
 | templates.
 |
 */
-import User from '#models/user'
-import Url from '#models/url'
-import { Bouncer } from '@adonisjs/bouncer'
 
 /**
  * Delete the following ability to start from
  * scratch
  */
-export const controlUser = Bouncer.ability((user: User,url:Url) => {
-  return user.id === url.userid
-})
+export const controlUser = {}
