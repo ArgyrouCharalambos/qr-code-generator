@@ -5,11 +5,12 @@ import Url from '#models/url'
 
 export default class ShortUrlsController {
   //vers page d'accueil
-  public async index({ view }:HttpContext) {
-    const Utilisateur = await Url.all()
-
+  public async index({ view ,auth}:HttpContext) {
+    const USER = auth.user
+    const Utilisateur = await Url.findManyBy('userid',USER?.id)
+    
     return view.render('pages/liste', {
-      Utilisateur,
+      Utilisateur 
     })
   }
   //vers page home avec le formulaire
