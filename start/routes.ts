@@ -11,6 +11,8 @@ import router from '@adonisjs/core/services/router'
 
 const ShortUrlsController = () => import("#controllers/short_urls_controller")
 const UsersController = () => import("#controllers/users_controller")
+const EmailsController = () => import("#controllers/emails_controller")
+
 router.on('/login').render('security/login')
 router.on('/signin').render('security/signin')
 router.post("/signin", [UsersController , 'create'])
@@ -32,4 +34,6 @@ router.post("/edit/:code", [ShortUrlsController,'editEnregistrement']).use(middl
 router.get('/detail/:id',[ShortUrlsController , 'detail']).use(middleware.auth())
 
 router.post('/deconnect',[UsersController , 'deconnect']).use(middleware.auth()) 
+
+router.get("/send",[EmailsController, 'send']).use(middleware.auth())
 
