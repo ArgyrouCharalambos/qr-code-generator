@@ -28,6 +28,10 @@ __decorate([
     __metadata("design:type", String)
 ], Url.prototype, "mini", void 0);
 __decorate([
+    column(),
+    __metadata("design:type", Number)
+], Url.prototype, "userid", void 0);
+__decorate([
     column.dateTime({ autoCreate: true }),
     __metadata("design:type", DateTime)
 ], Url.prototype, "createdAt", void 0);

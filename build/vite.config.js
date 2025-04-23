@@ -9,7 +9,7 @@ export default defineConfig({
     ],
     server: {
         host: true,
-        allowedHosts: ["qr-code-generator-27.onrender.com"],
+        allowedHosts: ["all"],
     },
 });
 //# sourceMappingURL=vite.config.js.map

@@ -2,8 +2,9 @@ import QRCode from 'qrcode';
 import { URL } from 'url';
 import Url from '#models/url';
 export default class ShortUrlsController {
-    async index({ view }) {
-        const Utilisateur = await Url.all();
+    async index({ view, auth }) {
+        const USER = auth.user;
+        const Utilisateur = await Url.findManyBy('userid', USER?.id);
         return view.render('pages/liste', {
             Utilisateur,
         });
@@ -11,17 +12,19 @@ export default class ShortUrlsController {
     async home({ view }) {
         return view.render('pages/home');
     }
-    async create({ request, view }) {
+    async create({ request, view, auth }) {
         const lien = request.input('lien');
         new URL(`${lien}`);
         const code = Number(Math.random().toString().substring(3, 9));
         const appHost = process.env.APP_URL;
         const newUrl = new URL(`/${code}`, `${appHost}`);
         const mini = String(newUrl);
+        const USER = auth.user;
         await Url.create({
             code,
             lien,
             mini,
+            userid: USER?.id,
         });
         const Qrlien = await QRCode.toDataURL(String(newUrl));
         return view.render('pages/result', {
@@ -35,14 +38,11 @@ export default class ShortUrlsController {
         const Utilisateurs = await Url.findByOrFail('code', code);
         return response.redirect(Utilisateurs.lien);
     }
-    async delete({ params, view }) {
+    async delete({ params, response }) {
         const id = params.id;
         const Utilisateurs = await Url.findOrFail(id);
         await Utilisateurs.delete();
-        const Utilisateur = await Url.all();
-        return view.render('pages/liste', {
-            Utilisateur,
-        });
+        return response.redirect('/');
     }
     async edit({ params, view }) {
         const code = params.code;
@@ -55,7 +55,7 @@ export default class ShortUrlsController {
             code: [code],
         });
     }
-    async editEnregistrement({ params, view, request }) {
+    async editEnregistrement({ params, request, response }) {
         const code = params.code;
         const Utilisateurs = await Url.findByOrFail('code', code);
         const AncUrl = request.input('lienOriginal');
@@ -65,10 +65,7 @@ export default class ShortUrlsController {
         Utilisateurs.lien = AncUrl;
         Utilisateurs.mini = `${appHost}/${codeRecup}`;
         await Utilisateurs.save();
-        const Utilisateur = await Url.all();
-        return view.render('pages/liste', {
-            Utilisateur
-        });
+        return response.redirect('/');
     }
     async detail({ params, view }) {
         const id = params.id;
@@ -79,7 +76,7 @@ export default class ShortUrlsController {
         return view.render('pages/result', {
             Qrlien: [Qrlien],
             newUrl: [newUrl],
-            lien: [lien]
+            lien: [lien],
         });
     }
 }

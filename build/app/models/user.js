@@ -16,6 +16,11 @@ const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
     uids: ['email'],
     passwordColumnName: 'password',
 });
+export var UserRole;
+(function (UserRole) {
+    UserRole["ADMIN"] = "admin";
+    UserRole["USER"] = "user";
+})(UserRole || (UserRole = {}));
 export default class User extends compose(BaseModel, AuthFinder) {
 }
 __decorate([
