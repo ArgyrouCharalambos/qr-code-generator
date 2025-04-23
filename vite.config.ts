@@ -19,7 +19,7 @@ export default defineConfig({
 
   server: {
     host: true,
-    allowedHosts: ["https://qr-code-generator-1-1.onrender.com"] ,
+    allowedHosts: true ,
   },
 })
 
