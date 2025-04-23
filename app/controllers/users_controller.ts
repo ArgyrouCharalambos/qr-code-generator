@@ -27,4 +27,9 @@ export default class UsersController {
 
         response.redirect('/')
     }
+
+    public async Deconnect({ auth, response}:HttpContext){
+            await auth.use('web').logout()
+            return response.redirect('/login')
+    }
 }
