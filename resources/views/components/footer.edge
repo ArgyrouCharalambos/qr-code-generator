@@ -3,6 +3,9 @@
     <p class="text-white">
         © 2025 Tous droits réservés
     </p>
-    <a href="" class="hover:underline text-white">Déconnexion</a>
+    <form action="/deconnect" method="post">
+        {{ csrfField() }}
+        <button type="submit" class="hover:underline text-white">Déconnexion</button>
+    </form>
 </div>
 </footer>

@@ -31,5 +31,5 @@ router.post("/edit/:code", [ShortUrlsController,'editEnregistrement']).use(middl
 
 router.get('/detail/:id',[ShortUrlsController , 'detail']).use(middleware.auth())
 
-router.get('/Deconnect',[UsersController , 'Deconnect']).use(middleware.auth()) 
+router.post('/deconnect',[UsersController , 'deconnect']).use(middleware.auth()) 
 
