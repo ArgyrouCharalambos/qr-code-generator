@@ -19,7 +19,7 @@ export default defineConfig({
 
   server: {
     host: true,
-    allowedHosts: ["all"] ,
+    allowedHosts: ["https://short-url-generator.onrender.com"] ,
   },
 })
 
