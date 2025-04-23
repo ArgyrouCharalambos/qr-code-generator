@@ -9,22 +9,33 @@ const mailConfig = defineConfig({
     * each using a different transport or same transport with different
     * options.
    */
-  mailers: { 
+   from: {
+    address: '',
+    name: '',
+  },
+  
+  mailers: {
     smtp: transports.smtp({
       host: env.get('SMTP_HOST'),
       port: env.get('SMTP_PORT'),
-			/**
-       * Uncomment the auth block if your SMTP
-       * server needs authentication
-       */
-       auth: {
+      secure: false,
+
+      auth: {
         type: 'login',
-        user: String(env.get('SMTP_USERNAME')),
-        pass: String(env.get('SMTP_PASSWORD')),
-      }, 
-    }),
-		     
-  },
+        user: env.get('SMTP_USERNAME'),
+        pass: env.get('SMTP_PASSWORD')
+      },
+
+      tls: {},
+
+      ignoreTLS: false,
+      requireTLS: false,
+
+      pool: false,
+      maxConnections: 5,
+      maxMessages: 100,
+    })
+  }
 })
 
 export default mailConfig
