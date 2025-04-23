@@ -91,8 +91,8 @@ export default class ShortUrlsController {
     const id: number = params.id
     const Utilisateurs = await Url.findOrFail(id)
 
-    const newUrl: string = Utilisateurs.lien
-    const lien: string = Utilisateurs.mini
+    const lien: string = Utilisateurs.lien
+    const newUrl: string = Utilisateurs.mini
 
     const Qrlien: string = await QRCode.toDataURL(lien)
 
