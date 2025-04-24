@@ -2,6 +2,10 @@ import type { HttpContext } from '@adonisjs/core/http'
 import QRCode from 'qrcode'
 import { URL } from 'url'
 import Url from '#models/url'
+import {
+  createUrlValidator,
+  updateUrlValidator
+} from '#validators/url'
 
 export default class ShortUrlsController {
   //vers page d'accueil
@@ -74,14 +78,14 @@ export default class ShortUrlsController {
     const code: number = params.code
     const Utilisateurs = await Url.findByOrFail('code', code)
 
-    const AncUrl: string = request.input('lienOriginal')
-    const codeRecup: number = request.input('code')
-
+    const data = request.all()
+    const payload = await updateUrlValidator.validate(data)
+    
     const appHost = process.env.APP_URL
 
-    Utilisateurs.code = codeRecup
-    Utilisateurs.lien = AncUrl
-    Utilisateurs.mini = `${appHost}/${codeRecup}`
+    Utilisateurs.code = payload.code
+    Utilisateurs.lien = payload.lien
+    Utilisateurs.mini = `${appHost}/${payload.code}`
     await Utilisateurs.save()
 
     return response.redirect('/')
