@@ -22,10 +22,9 @@ export default class UsersController {
   }
   //connexion d'un utilisateur
   public async login({ request, auth, response }: HttpContext) {
-    const email = request.input('email')
-    const password = request.input('password')
-
-    const user = await USER.verifyCredentials(email, password)
+    const data = request.all()
+    const payload = await connexionUserValidator.validate(data)
+    const user = await USER.verifyCredentials(payload.email, payload.password)
 
     await auth.use('web').login(user)
 
