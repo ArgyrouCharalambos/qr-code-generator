@@ -24,24 +24,24 @@ export default class ShortUrlsController {
 
   // création d'une url courte
   public async create({ request, view, auth }: HttpContext) {
-    const lien: string = request.input('lien')
-    new URL(`${lien}`)
-    const code: number = Number(Math.random().toString().substring(3, 9))
+    const data = request.all()
+    const payload = await createUrlValidator.validate(data)
+    const code: number = Number(Math.random().toString().substring(4, 10))
     const appHost = process.env.APP_URL
     const newUrl = new URL(`/${code}`, `${appHost}`)
     const mini: string = String(newUrl)
     const USER = auth.user
     await Url.create({
       code,
-      lien,
+      lien:payload.lien,
       mini,
       userid: USER?.id,
     })
-    const Qrlien: string = await QRCode.toDataURL(String(newUrl))
+    const Qrlien: string = await QRCode.toDataURL(mini)
     return view.render('pages/result', {
       Qrlien: [Qrlien],
       newUrl: [newUrl],
-      lien: [lien],
+      lien: [payload.lien],
     })
   }
 
