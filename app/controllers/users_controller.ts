@@ -8,7 +8,7 @@ import {
 export default class UsersController {
   //création d'un utilisateur
   public async create({ request, response }: HttpContext) {
-    const data = request.all()
+        const data = request.all()
     const payload = await createUserValidator.validate(data)
     await USER.create({
       fullName:payload.fullName,
@@ -16,7 +16,8 @@ export default class UsersController {
       email:payload.email,
       role: UserRole.USER,
     })
-    response.redirect('/login')
+    response.redirect('/login') 
+   
   }
   //connexion d'un utilisateur
   public async login({ request, auth, response }: HttpContext) {
