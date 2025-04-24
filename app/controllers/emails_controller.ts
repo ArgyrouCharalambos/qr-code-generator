@@ -29,10 +29,11 @@ return view.render('security/passwordedit',{email:[email]})
     
     public async passwordEnregistrement({params,request,response}:HttpContext){
         const email:string = params.email
-        const newPassword = request.input("newPassword")
+        const data = request.all()
+        const payload = await changePasswordValidator.validate(data)
         const user = await User.findByOrFail('email',email)
 
-        user.password = newPassword
+        user.password = payload.password
         await user.save()
 
         return response.redirect('/login')
