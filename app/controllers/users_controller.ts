@@ -1,45 +1,49 @@
 import type { HttpContext } from '@adonisjs/core/http'
-import USER,{UserRole} from '#models/user'
+import USER, { UserRole } from '#models/user'
+import {
+  createUserValidator,
+  connexionUserValidator,
+  forgotPasswordValidator,
+  changePasswordValidator,
+} from '#validators/user'
 
 export default class UsersController {
+  //création d'un utilisateur
+  public async create({ request, response }: HttpContext) {
+    const data = request.all()
+    const payload = await createUserValidator.validate(data)
+    await USER.create({
+      fullName:payload.fullName,
+      password:payload.password,
+      email:payload.email,
+      role: UserRole.USER,
+    })
+    response.redirect('/login')
+  }
+  //connexion d'un utilisateur
+  public async login({ request, auth, response }: HttpContext) {
+    const email = request.input('email')
+    const password = request.input('password')
 
-    //création d'un utilisateur
-    public async create({request,response}:HttpContext){
-        const fullName = request.input('name')
-        const email = request.input('email')
-        const password = request.input('password')
-        await USER.create({
-            fullName,
-            password,
-            email,
-            role:UserRole.USER
-        })
-        response.redirect('/login')
-    }
-    //connexion d'un utilisateur
-    public async login({request,auth,response}:HttpContext){
-        const email = request.input('email')
-        const password = request.input('password')
+    const user = await USER.verifyCredentials(email, password)
 
-        const user = await USER.verifyCredentials(email, password)
+    await auth.use('web').login(user)
 
-        await auth.use('web').login(user)
+    response.redirect('/')
+  }
 
-        response.redirect('/')
-    }
+  public async deconnect({ auth, response }: HttpContext) {
+    await auth.use('web').logout()
+    return response.redirect('/login')
+  }
+  public async profil({ auth, view }: HttpContext) {
+    const user = auth.user
+    const fullName = user?.fullName
+    const email = user?.email
 
-    public async deconnect({ auth, response}:HttpContext){
-            await auth.use('web').logout()
-            return response.redirect('/login')
-    }
-    public async profil({ auth ,view }:HttpContext){
-        const user = auth.user
-        const fullName = user?.fullName
-        const email = user?.email
-
-        return view.render('pages/profil',{
-            fullName:[fullName],
-            email:[email]
-        })
-    }
+    return view.render('pages/profil', {
+      fullName: [fullName],
+      email: [email],
+    })
+  }
 }
