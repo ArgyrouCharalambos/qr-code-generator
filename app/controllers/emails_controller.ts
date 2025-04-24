@@ -1,7 +1,10 @@
 import type { HttpContext } from '@adonisjs/core/http'
 import mail from '@adonisjs/mail/services/main'
 import User from '#models/user'
-
+import {
+    forgotPasswordValidator,
+    changePasswordValidator,
+  } from '#validators/user'
 
 
 export default class EmailsController {
@@ -10,15 +13,16 @@ export default class EmailsController {
 return view.render('security/passwordedit',{email:[email]})
     }
     public async sendPassword({request,response}:HttpContext){
-        const email = request.input('email')
-        User.findByOrFail('email',email)
+        const data = request.all()
+        const payload = await forgotPasswordValidator.validate(data)
+        User.findByOrFail('email',payload.email)
         const appHost = process.env.APP_URL
         await mail.send((message) => {
         message
-          .to(email)
+          .to(payload.email)
           .from('argykaselve@gmail.com')
           .subject('Verify your email address')
-          .html(`<a href="${appHost}/passwordedit/${email}" target="_blank" >réinsaliser le mot de passe !</a>`)
+          .html(`<a href="${appHost}/passwordedit/${payload.email}" target="_blank" >Voici le lien pour réinsaliser votre mot de passe !</a>`)
       })
       return response.redirect("/login")
     }

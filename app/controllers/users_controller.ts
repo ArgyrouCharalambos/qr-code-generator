@@ -3,8 +3,6 @@ import USER, { UserRole } from '#models/user'
 import {
   createUserValidator,
   connexionUserValidator,
-  forgotPasswordValidator,
-  changePasswordValidator,
 } from '#validators/user'
 
 export default class UsersController {
