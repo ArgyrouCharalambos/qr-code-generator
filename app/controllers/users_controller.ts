@@ -32,4 +32,14 @@ export default class UsersController {
             await auth.use('web').logout()
             return response.redirect('/login')
     }
+    public async profil({ auth ,view }:HttpContext){
+        const user = auth.user
+        const fullName = user?.fullName
+        const email = user?.email
+
+        return view.render('pages/profil',{
+            fullName:[fullName],
+            email:[email]
+        })
+    }
 }

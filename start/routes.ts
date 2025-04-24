@@ -15,7 +15,7 @@ const EmailsController = () => import("#controllers/emails_controller")
 
 router.on('/login').render('security/login')
 router.on('/signin').render('security/signin')
-router.on('/forgotview').render('security/passwordforgot')profil
+router.on('/forgotview').render('security/passwordforgot')
 router.get('/passwordedit/:email',[EmailsController, 'passwordedit'])
     
 
