@@ -15,7 +15,7 @@ const EmailsController = () => import("#controllers/emails_controller")
 
 router.on('/login').render('security/login')
 router.on('/signin').render('security/signin')
-router.on('/forgotview').render('security/passwordforgot')
+router.on('/forgotview').render('security/passwordforgot')profil
 router.get('/passwordedit/:email',[EmailsController, 'passwordedit'])
     
 
@@ -25,7 +25,7 @@ router.get("/connexion", [UsersController , 'login'])
 router.post("/passwordforgot",[EmailsController, 'sendPassword'])
 router.post("/passwordEnregistrement/:email",[EmailsController, 'passwordEnregistrement'])
 
-
+router.get('/profil' , [UsersController , 'profil']).use(middleware.auth())
 
 router.get("/",[ShortUrlsController, 'index']).use(middleware.auth())
 
